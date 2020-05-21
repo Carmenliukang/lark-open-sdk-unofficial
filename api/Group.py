@@ -4,7 +4,6 @@
 
 from urllib import parse
 from api.Base import Send
-from lib.func_txy import filter_map
 
 
 class GroupManage(Send):
@@ -31,9 +30,9 @@ class GroupManage(Send):
         '''
         机器人 创建群组
         :param name:
-        :param description:群描述
-        :param open_ids:人员列表
-        :param employee_ids:人员列表
+        :param description:
+        :param open_ids:
+        :param employee_ids:
         :param i18n_names:
         :return:
         '''
@@ -46,10 +45,10 @@ class GroupManage(Send):
             "employee_ids": employee_ids,
             "i18n_names": i18n_names
         }
-        filter_map(params)
+        self.filter_map(params)
         return self.group_request(url, params)
 
-    def get_group_list(self, page, page_size):
+    def get_group_list(self, page=1, page_size=10):
         '''
         获取群组列表
         :param page:
@@ -66,7 +65,6 @@ class GroupManage(Send):
         return self.group_request(url)
 
     def get_group_info(self, open_chat_id):
-        '''获取群信息'''
         params = {
             'open_chat_id': open_chat_id,
         }
@@ -76,7 +74,6 @@ class GroupManage(Send):
         return self.group_request(url)
 
     def group_update(self, open_chat_id="", owner_id="", owner_employee_id="", name="", i18n_names=[]):
-        '''更新群信息'''
         method = "update"
         url = self.get_url(method)
         params = {
@@ -86,7 +83,7 @@ class GroupManage(Send):
             'name': name,
             'i18n_names': i18n_names,
         }
-        filter_map(params)
+        self.filter_map(params)
 
         return self.group_request(url, params)
 
@@ -105,7 +102,7 @@ class GroupManage(Send):
             'open_ids': open_ids,
             'employee_ids': employee_ids,
         }
-        filter_map(params)
+        self.filter_map(params)
 
         return self.group_request(url, params)
 
@@ -124,6 +121,30 @@ class GroupManage(Send):
             'open_ids': open_ids,
             'employee_ids': employee_ids,
         }
-        filter_map(params)
+        self.filter_map(params)
+
+        return self.group_request(url, params)
+
+    def group_add_bot(self, token="", bot="", chat_id=""):
+        ''' 将机器人加入群 '''
+        url = 'https://oapi.zjurl.cn/open-apis/api/v2/bot/chat/join'
+        params = {
+            'token': token,
+            'bot': bot,
+            'chat_id': chat_id
+        }
+        self.filter_map(params)
+
+        return self.group_request(url, params)
+
+    def group_delete_bot(self, token="", bot="", chat_id=""):
+        ''' 将机器人提出群 '''
+        url = 'https://oapi.zjurl.cn/open-apis/api/v2/bot/chat/leave'
+        params = {
+            'token': token,
+            'bot': bot,
+            'chat_id': chat_id
+        }
+        self.filter_map(params)
 
         return self.group_request(url, params)

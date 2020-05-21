@@ -4,8 +4,8 @@
 读取配置文件中的信息
 '''
 
-import configparser
 import os
+import configparser
 
 
 class config(object):

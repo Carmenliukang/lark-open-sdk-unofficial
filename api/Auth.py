@@ -1,5 +1,6 @@
-# !/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import ssl
 
 # 关闭 ssl 根证书
@@ -11,8 +12,8 @@ import requests
 import contextlib
 
 
-class Send(object):
-    ''' SDK 基类 包含 URL 请求 app_token 更新通过 redis 或者 MySQL 查询 '''
+class Base(object):
+    ''' 授权基类 '''
 
     def __init__(self, app_id, app_secret):
         self.fresh_url = 'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/'

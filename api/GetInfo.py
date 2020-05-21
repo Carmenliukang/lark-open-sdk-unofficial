@@ -1,10 +1,12 @@
 # !/usr/bin/python
 # -*- coding: utf-8 -*-
+# @Time    : 2019-05-22 15:13
+# @Author  : liukang.hero
+# @FileName: GetInfo.py
 
 
 from urllib import parse
 from api.Base import Send
-from lib.func_txy import filter_map
 
 
 class GetBaseInfo(Send):
@@ -46,10 +48,11 @@ class GetBaseInfo(Send):
         '''
         method = "info"
         url = self.get_url(method)
+        self.version = "v3"
         params = {
             "open_id": open_id,
         }
-        filter_map(params)
+        self.filter_map(params)
         url = "%s?%s" % (url, parse.urlencode(params))
 
         return self.user_request(url)
@@ -65,7 +68,7 @@ class GetBaseInfo(Send):
         params = {
             "employee_id": employee_id,
         }
-        filter_map(params)
+        self.filter_map(params)
         url = "%s?%s" % (url, parse.urlencode(params))
 
         return self.user_request(url)
@@ -81,11 +84,27 @@ class GetBaseInfo(Send):
         params = {
             "email": email,
         }
-        filter_map(params)
+        self.filter_map(params)
 
         return self.user_request(url, params)
 
     def get_bot_info(self):
         ''' 获取机器人相关信息 '''
         url = 'https://open.feishu.cn/open-apis/bot/v3/info/'
+        return self.user_request(url)
+
+    def get_user_batch(self, open_ids=''):
+        '''
+        该接口用于批量获取用户详细信息。
+        :param open_ids:
+        :return:
+        '''
+        url = "https://open.feishu.cn/open-apis/contact/v1/user/batch_get"
+        params = {
+            "open_ids": open_ids,
+        }
+        self.filter_map(params)
+
+        url = "%s?%s" % (url, parse.urlencode(params))
+
         return self.user_request(url)

@@ -4,7 +4,7 @@
 from api.GetInfo import GetBaseInfo
 
 if __name__ == '__main__':
-    app_id = 'cli_9c2ecba99aaf910b'
+    app_id = ''
     app_secret = ''
     open_id = ''
     employee_id = ""
